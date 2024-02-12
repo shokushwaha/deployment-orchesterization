@@ -2,7 +2,7 @@ const express = require('express')
 const httpProxy = require('http-proxy')
 
 const app = express()
-const PORT = process.env.REVERSE_PROXY_PATH
+const REVERSE_PROXY_PORT = process.env.REVERSE_PROXY_PORT
 
 const BASE_PATH = process.env.BASE_PATH
 
@@ -25,4 +25,4 @@ proxy.on('proxyReq', (proxyReq, req, res) => {
 
 })
 
-app.listen(PORT, () => console.log(`Reverse Proxy Running..${PORT}`))
+app.listen(REVERSE_PROXY_PORT, () => console.log(`Reverse Proxy Running..${REVERSE_PROXY_PORT}`))

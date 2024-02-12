@@ -1,0 +1,31 @@
+version: '3.1'
+services:
+  api-build-server:
+    build: ./api-base-server
+    ports:
+      - 9000
+    environment:
+      - API_PORT=${API_PORT}
+      - ECS_CLIENT_REGION=${ECS_CLIENT_REGION}
+      - ECS_CLIENT_ACCESS_KEY_ID=${ECS_CLIENT_ACCESS_KEY_ID}
+      - ECS_CLIENT_SECRET_ACCESS_KEY=${ECS_CLIENT_SECRET_ACCESS_KEY}
+      - CLUSTER=${CLUSTER}
+      - TASK=${TASK}
+
+  builder-server:
+    build: ./builder-server
+    ports:
+      - 3001
+    environment:
+      - S3_CLIENT_REGION=${S3_CLIENT_REGION}
+      - S3_CLIENT_ACCESS_KEY_ID=${S3_CLIENT_ACCESS_KEY_ID}
+      - S3_CLIENT_SECRET_ACCESS_KEY=${S3_CLIENT_SECRET_ACCESS_KEY}
+      - PROJECT_ID=${PROJECT_ID}
+
+  reverse-proxy-s3:
+    build: ./reverse-proxy-s3
+    ports:
+      - 3000
+    environment:
+      - PORT=${REVERSE_PROXY_PORT}
+      - BASE_PATH=${BASE_PATH}
